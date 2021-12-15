@@ -31,9 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'hrmsadminmod.apps.HrmsadminmodConfig',
-    'hrmsdevmod.apps.HrmsdevmodConfig',
-    'account.apps.AccountConfig',
+    'hrmsapp.apps.HrmsAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -113,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'account.Account'
+AUTH_USER_MODEL = 'hrmsapp.Collaborateur'
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

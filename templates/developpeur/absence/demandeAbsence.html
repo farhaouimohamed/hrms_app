@@ -1,0 +1,63 @@
+{% extends "developpeur/base_dev.html" %} {% block content %}
+
+<div class="container" style="padding-top: 50px; padding-bottom: 20px;">
+    <div class="col-md-12 col-auto">
+        <form method="post" action="">
+            {% csrf_token %}
+            <h1 style="text-align: center;">Remplir le formulaire d'absence</h1>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputTitre">Date de début</label> 
+                    <input class="form-control" type="date" name="date_debut" id="date_fin" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputDateLancement">Date de fin</label> 
+                    <input class="form-control" type="date" name="date_debut" id="date_fin" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputTitre">Codification</label> 
+                    <input class="form-control" type="text" name="codification" id="codification" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputDateLancement">Nature</label> 
+                    <input class="form-control" type="text" name="nature" id="nature" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputDateLancement">Nombre de jours</label> 
+                    <input class="form-control" type="number" name="nbr_jours" id="nbr_jours" />
+                </div>
+            </div>
+            <h1 style="text-align: center;">Remplir le formulaire de l'envoi du mail</h1>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputObjet">Objet</label> 
+                    <input class="form-control" type="text" name="objet" id="objet" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputDestinataire">Destinataire</label> 
+                    <input class="form-control" type="text" name="destinataire" id="destinataire" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputCc">Cc</label> 
+                    <input class="form-control" type="text" name="cc" id="cc" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputBody">Contenu</label> 
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Demander une autorisation</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}

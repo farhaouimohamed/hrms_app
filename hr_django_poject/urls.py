@@ -19,7 +19,5 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('account.urls')),
-    path('module_responsable/', include('hrmsadminmod.urls')),
-    path('module_developpeur/', include('hrmsdevmod.urls')),
+    path('', include('hrmsapp.urls')),
 ]
