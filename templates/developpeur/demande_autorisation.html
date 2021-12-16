@@ -1,0 +1,21 @@
+{% extends "developpeur/base.html" %} {% block content %}
+
+<div class="container col-md-12 col-auto" style="padding-top: 50px">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <h1>Demander une autorisation</h1>
+        </div>
+    </div>
+</div>
+<div class="container" style="padding-top: 20px; padding-bottom: 30px;">
+
+    <div class="col-md-12 col-auto">
+
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %} {{form.as_p}}
+            <button type="submit" class="btn btn-success">Demander une autorisation</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

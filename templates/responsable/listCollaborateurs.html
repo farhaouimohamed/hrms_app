@@ -1,0 +1,48 @@
+<!-- home.html -->
+{% extends "responsable/base.html" %} {% block content %}
+<div class="container col-md-12 col-auto" style="padding-top: 50px">
+    <div class="form-row">
+        <div class="form-group col-md-9">
+            <h1>Liste des collaborateurs</h1>
+        </div>
+        <div class="form-group col-md-3">
+            <a class="button btn btn-primary" href="/responsable/ajouter_collaborateur">
+                Ajouter un collaborateur
+            </a>
+        </div>
+    </div>
+    <div class="form-row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Adresse mail</th>
+                    <th scope="col">Matricule</th>
+                    <th scope="col">service</th>
+                    <th scope="col">Fonction</th>
+                    <th scope="col">Date début fonction</th>
+                    <th scope="col">Date fin fonction</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for collaborateur in collaborateurs %}
+                <tr>
+                    <td>{{collaborateur.nom}}</td>
+                    <td>{{collaborateur.prenom}}</td>
+                    <td>{{collaborateur.email}}</td>
+                    <td>{{collaborateur.matricule}}</td>
+                    <td>{{collaborateur.service}}</td>
+                    <td>{{collaborateur.fonction}}</td>
+                    <td>{{collaborateur.date_debut_fonction}}</td>
+                    <td>{{collaborateur.date_fin_fonction}}</td>
+                    <td><a class="btn btn-sm btn-primary" href="#">Détails</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

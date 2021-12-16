@@ -1,0 +1,40 @@
+<!-- home.html -->
+{% extends "developpeur/base.html" %} {% block content %}
+<div class="container col-md-12 col-auto" style="padding-top: 50px">
+    <div class="form-row">
+        <div class="form-group col-md-9">
+            <h1>Liste des autorisations validées</h1>
+        </div>
+        <div class="form-group col-md-3">
+            <a class="button btn btn-primary" href="/developpeur/demande_autorisation">
+                Demander une autorisation
+            </a>
+        </div>
+    </div>
+    <div class="form-row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Codification</th>
+                    <th scope="col">Nature</th>
+                    <th scope="col">Nombre de jours</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for autorisation in autorisations %}
+                <tr>
+                    <td>{{autorisation.date_debut}}</td>
+                    <td>{{autorisation.date_fin}}</td>
+                    <td>{{autorisation.codification}}</td>
+                    <td>{{autorisation.nature}}</td>
+                    <td>{{autorisation.nbr_jours}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}
