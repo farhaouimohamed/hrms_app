@@ -84,12 +84,3 @@ class Absence(models.Model):
 	statut=models.TextField(max_length=20, default="en_cours")
 	nbr_jours=models.IntegerField(null=False,blank=False)
 	developpeur=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=False,blank=False)
-
-
-class Mail(models.Model):
-	objet=models.CharField(max_length=255,null=False,blank=False)
-	body=models.TextField(null=False,blank=False)
-	absence=models.ForeignKey(Absence,on_delete=CASCADE,null=False,blank=False)
-	email_source=models.EmailField(null=False,blank=False)
-	email_destination=models.EmailField(null=False,blank=False)
-

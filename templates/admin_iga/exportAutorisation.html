@@ -1,0 +1,31 @@
+<!-- home.html -->
+{% extends "admin_iga/base.html" %} {% block content %}
+<br>
+<div class="row" style="padding: 50px;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h1 style="text-align: center;">Exporter les autorisations</h1>
+        <div class="card card-body">
+            <hr>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputNbr" class="form-label">Date de début</label>
+                        <input id="inputDateDebut" name="inputDateDebut" class="form-control" type="datetime-local" required/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputNbr" class="form-label">Date de fin</label>
+                        <input id="inputDateFin" name="inputDateFin" class="form-control" type="datetime-local" required/>
+                    </div>
+                </div>
+                <hr>
+                <input class="btn btn-success" type="submit" name="Exporter">
+            </form>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+{% endblock content %}

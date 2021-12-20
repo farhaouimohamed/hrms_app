@@ -13,10 +13,6 @@
 
         <form method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <label class="form-label">Titre du mail</label>
-                <input type="text" id="inputTitre" name="inputTitre" class="form-control"/>
-            </div>
             {{form.as_p}}
             <button type="submit" class="btn btn-success">Demander une autorisation</button>
         </form>

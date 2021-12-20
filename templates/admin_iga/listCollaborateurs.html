@@ -21,9 +21,7 @@
                     <th scope="col">Matricule</th>
                     <th scope="col">service</th>
                     <th scope="col">Fonction</th>
-                    <th scope="col">Date début fonction</th>
-                    <th scope="col">Date fin fonction</th>
-                    <th scope="col"></th>
+                    <th scope="col">Date de recrutement</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,8 +34,6 @@
                     <td>{{collaborateur.service}}</td>
                     <td>{{collaborateur.fonction}}</td>
                     <td>{{collaborateur.date_debut_fonction}}</td>
-                    <td>{{collaborateur.date_fin_fonction}}</td>
-                    <td><a class="btn btn-sm btn-primary" href="#">Détails</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

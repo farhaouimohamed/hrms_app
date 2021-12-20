@@ -10,23 +10,23 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th scope="col">Collaborateur</th>
                     <th scope="col">Date de début</th>
                     <th scope="col">Date de fin</th>
                     <th scope="col">Codification</th>
                     <th scope="col">Nature</th>
                     <th scope="col">Nombre de jours</th>
-                    <th scope="col">Détails</th>
                 </tr>
             </thead>
             <tbody>
                 {% for autorisation in autorisations %}
                 <tr>
+                    <td>{{autorisation.developpeur.email}}</td>
                     <td>{{autorisation.date_debut}}</td>
                     <td>{{autorisation.date_fin}}</td>
                     <td>{{autorisation.codification}}</td>
                     <td>{{autorisation.nature}}</td>
                     <td>{{autorisation.nbr_jours}}</td>
-                    <td><a class="btn btn-sm btn-dark" href="{% url 'detail_autorisation' autorisation.id %}">Détails</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

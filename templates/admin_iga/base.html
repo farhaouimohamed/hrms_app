@@ -24,22 +24,19 @@
 
                 <!-- Left links -->
                 <ul class="navbar-nav mb-2 mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="/admin_iga/profile" href="">Profile</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin_iga/liste_collaborateurs">Collaborateur</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin_iga/liste_autorisations">Autorisation</a>
+                        <a class="nav-link" href="/admin_iga/exporter_autorisations">Autorisation</a>
                     </li>
                 </ul>
                 <!-- Left links -->
             </div>
             <!-- Collapsible wrapper -->
             <div class="d-flex align-items-center">
-                <a type="button" href="/logout" class="btn btn-link px-3 me-2">
+                <span style="color: white;">{{user.email}}</span>
+                <a style="color: violet;" type="button" href="/logout" class="btn btn-link px-3 me-2">
             Logout
           </a>
             </div>

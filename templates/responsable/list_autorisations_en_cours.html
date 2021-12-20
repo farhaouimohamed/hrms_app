@@ -10,6 +10,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th scope="col">Collaborateur</th>
                     <th scope="col">Date de début</th>
                     <th scope="col">Date de fin</th>
                     <th scope="col">Codification</th>
@@ -21,12 +22,14 @@
             <tbody>
                 {% for autorisation in autorisations %}
                 <tr>
+                    <td>{{autorisation.developpeur.email}}</td>
                     <td>{{autorisation.date_debut}}</td>
                     <td>{{autorisation.date_fin}}</td>
                     <td>{{autorisation.codification}}</td>
                     <td>{{autorisation.nature}}</td>
                     <td>{{autorisation.nbr_jours}}</td>
-                    <td><a class="btn btn-sm btn-info" href="{% url 'valider_autorisation' autorisation.id %}">Détails</a></td>
+                    <td><a class="btn btn-sm btn-success" href="{% url 'valider_autorisation' autorisation.id %}">Valider</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'refuser_autorisation' autorisation.id %}">Refuser</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

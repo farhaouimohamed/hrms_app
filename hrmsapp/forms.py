@@ -32,8 +32,8 @@ class AbsenceModelForm(forms.ModelForm):
         model = Absence
         fields = ('date_debut','date_fin','codification','nature','nbr_jours')
         widgets = {
-            'date_debut':forms.DateInput(attrs={'class':'form-control','type':'date'}),
-            'date_fin':forms.DateInput(attrs={'class':'form-control','type':'date'}),
+            'date_debut':forms.DateInput(attrs={'class':'form-control','type':'datetime-local'}),
+            'date_fin':forms.DateInput(attrs={'class':'form-control','type':'datetime-local'}),
             'codification':forms.TextInput(attrs={'class':'form-control'}),
             'nature':forms.TextInput(attrs={'class':'form-control'}),
             'nbr_jours':forms.NumberInput(attrs={'class':'form-control'}),
