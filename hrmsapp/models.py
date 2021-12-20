@@ -81,13 +81,15 @@ class Absence(models.Model):
 	date_fin=models.DateTimeField(null=False, blank=False)
 	codification=models.CharField(max_length=255, null=False, blank=False)
 	nature= models.CharField(max_length=20,null=False,blank=False)
-	est_valide=models.BooleanField(default=False)
+	statut=models.TextField(max_length=20, default="en_cours")
 	nbr_jours=models.IntegerField(null=False,blank=False)
-	cause=models.TextField(null=True,blank=True)
-	developpeur=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True,blank=True)
+	developpeur=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=False,blank=False)
+
 
 class Mail(models.Model):
-    objet=models.CharField(max_length=255,null=False,blank=False)
-    body=models.TextField(null=False,blank=False)
-	absence=models.ForeignKey(Mail,on_delete=CASCADE,null=False,blank=False)
-    collaborateur=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	objet=models.CharField(max_length=255,null=False,blank=False)
+	body=models.TextField(null=False,blank=False)
+	absence=models.ForeignKey(Absence,on_delete=CASCADE,null=False,blank=False)
+	email_source=models.EmailField(null=False,blank=False)
+	email_destination=models.EmailField(null=False,blank=False)
+

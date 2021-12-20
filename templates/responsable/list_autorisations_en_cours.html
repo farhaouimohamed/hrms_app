@@ -1,14 +1,9 @@
 <!-- home.html -->
-{% extends "developpeur/base.html" %} {% block content %}
+{% extends "responsable/base.html" %} {% block content %}
 <div class="container col-md-12 col-auto" style="padding-top: 50px">
     <div class="form-row">
         <div class="form-group col-md-9">
-            <h1>Liste des autorisations validées</h1>
-        </div>
-        <div class="form-group col-md-3">
-            <a class="button btn btn-primary" href="/developpeur/demande_autorisation">
-                Demander une autorisation
-            </a>
+            <h1>Liste des autorisations en cours</h1>
         </div>
     </div>
     <div class="form-row">
@@ -20,7 +15,7 @@
                     <th scope="col">Codification</th>
                     <th scope="col">Nature</th>
                     <th scope="col">Nombre de jours</th>
-                    <th scope="col">Détails</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +26,7 @@
                     <td>{{autorisation.codification}}</td>
                     <td>{{autorisation.nature}}</td>
                     <td>{{autorisation.nbr_jours}}</td>
-                    <td><a class="btn btn-sm btn-dark" href="{% url 'detail_autorisation' autorisation.id %}">Détails</a></td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'valider_autorisation' autorisation.id %}">Détails</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

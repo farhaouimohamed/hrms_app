@@ -1,3 +1,4 @@
+from enum import auto
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 
@@ -28,9 +29,9 @@ def login_view(request):
                 if user:
                     login(request,user)
                     if user.is_developper == True:
-                        return redirect("/developpeur/profile")
+                        return redirect("/developpeur/liste_autorisations_validees")
                     elif user.is_responsable == True:
-                        return redirect("/responsable/profile")
+                        return redirect("/responsable/liste_collaborateur")
                     elif user.is_admin == True:
                         return redirect("/admin_iga/profile")
                 else:
@@ -93,26 +94,94 @@ def profil_responsable(request):
 
 
 def list_collaborateur_resp(request):
-    collaborateurs = Collaborateur.objects.all()
-    return render(request,'responsable/listCollaborateurs.html',{"collaborateurs":collaborateurs})
+    user=request.user
+    if user.is_authenticated:
+        if user.is_responsable == True:
+            collaborateurs = Collaborateur.objects.filter(responsable_id=user.id)
+            return render(request,'responsable/listCollaborateurs.html',{"collaborateurs":collaborateurs})
+        else:
+            return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
+    else:
+        return render(request,"login.html",{})
+    
 
 def list_autorisations_resp(request):
     user = request.user
     if user.is_authenticated:
         if user.is_responsable == True:
             user=request.user
-            absences=Absence.objects.filter(responsable_id=user.id)
-            return render(request,'responsable/listAutorisations.html',{"absences":absences})
+            autorisations=Absence.objects.filter(responsable_id=user.id)
+            return render(request,'responsable/listAutorisations.html',{"autorisations":autorisations})
         else:
             return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
     else:
         return render(request,"login.html",{})
 
+def list_autorisations_validees_resp(request):
+    user = request.user
+    if user.is_authenticated:
+        if user.is_responsable == True:
+            user=request.user
+            collaborateurs = Collaborateur.objects.filter(responsable_id=user.id)
+            autorisations = []
+            for collaborateur in collaborateurs:
+                autorisations.extend(list(Absence.objects.filter(developpeur_id=collaborateur.id).filter(statut="validee")))
+            return render(request,'responsable/list_autorisations_validees.html',{"autorisations":autorisations})
+        else:
+            return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
+    else:
+        return render(request,"login.html",{})
+
+def list_autorisations_en_cours_resp(request):
+    user = request.user
+    if user.is_authenticated:
+        if user.is_responsable == True:
+            user=request.user
+            collaborateurs = Collaborateur.objects.filter(responsable_id=user.id)
+            autorisations = []
+            for collaborateur in collaborateurs:
+                autorisations.extend(list(Absence.objects.filter(developpeur_id=collaborateur.id).filter(statut="en_cours")))
+            return render(request,'responsable/list_autorisations_en_cours.html',{"autorisations":autorisations})
+        else:
+            return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
+    else:
+        return render(request,"login.html",{})
+
+def list_autorisations_non_validees_resp(request):
+    user = request.user
+    if user.is_authenticated:
+        if user.is_responsable == True:
+            user=request.user
+            collaborateurs = Collaborateur.objects.filter(responsable_id=user.id)
+            absences = []
+            for collaborateur in collaborateurs:
+                absences.extend(list(Absence.objects.filter(developpeur_id=collaborateur.id).filter(statut="non_validee")))
+            return render(request,'responsable/list_autorisations_non_validees.html',{"absences":absences})
+        else:
+            return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
+    else:
+        return render(request,"login.html",{})
+
+
+
+def valider_autorisation(request,pk):
+    user = request.user
+    if user.is_authenticated:
+        if user.is_responsable == True:
+            if request.method == 'GET':
+                collaborateurs=Collaborateur.objects.filter(responsable_id=user.id)
+                autorisation=Absence.objects.get(id=pk)
+                mail=autorisation.mail_set.all()
+                return render(request,'responsable/detail_autorisation.html',{"collaborateurs":collaborateurs,"mail":mail,"autorisation":autorisation})
+            if request.method == 'POST':
+                print()
+        else:
+            return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
+    else:
+        return render(request,"login.html",{})
+            
     
 ###################################################################################################### Developpeur
-
-def profil_developpeur(request):
-    return render(request,'developpeur/profil.html',{})
 
 def demander_autorisation(request):
     user = request.user
@@ -127,17 +196,20 @@ def demander_autorisation(request):
                 if form.is_valid():
                     autorisation = form.save(commit=False)
                     titre = request.POST['inputTitre']
-                    destinataire = user.responsable.email
+                    collaborateur = Collaborateur.objects.get(email=user.email)
+                    responsable = Collaborateur.objects.get(id=collaborateur.responsable_id)
+                    destinataire = responsable.email
                     contenu="bla bla bla"+request.POST['date_debut']+"bla bla bla"+request.POST['date_fin']+"bla bla bla"+request.POST['nbr_jours']+"bla bla bla"+request.POST['codification']
                     mail = Mail()
                     mail.objet=titre
                     mail.body=contenu
                     mail.email_source=user.email
-                    mail.email_destinataire=user.responsable.email
+                    mail.email_destination=destinataire
+                    autorisation.developpeur=collaborateur
                     autorisation.save()
+                    mail.absence=autorisation
                     mail.save()
-                    print(request.POST['date_fin'])
-                    return redirect("/developpeur/profile")
+                    return redirect("/developpeur/liste_autorisations_validees")
                 else:
                     print("Form is not valid")
                     context = {'form':form}
@@ -151,7 +223,7 @@ def list_autorisations_validees(request):
     user = request.user
     if user.is_authenticated:
         if user.is_developper == True:
-            autorisations = Absence.objects.filter(est_valide=True)
+            autorisations = Absence.objects.filter(developpeur_id=user.id).filter(statut="validee")
             return render(request,"developpeur/list_autorisations_validees.html",{'autorisations':autorisations})
         else:
             return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
@@ -162,8 +234,19 @@ def list_autorisations_non_validees(request):
     user = request.user
     if user.is_authenticated:
         if user.is_developper == True:
-            autorisations = Absence.objects.filter(est_valide=False)
+            autorisations = Absence.objects.filter(developpeur_id=user.id).filter(statut="non_validee")
             return render(request,"developpeur/list_autorisations_non_validees.html",{'autorisations':autorisations})
+        else:
+            return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
+    else:
+        return render(request,"login.html",{})
+
+def list_autorisations_en_cours(request):
+    user = request.user
+    if user.is_authenticated:
+        if user.is_developper == True:
+            autorisations = Absence.objects.filter(developpeur_id=user.id).filter(statut="en_cours")
+            return render(request,"developpeur/list_autorisations_en_cours.html",{'autorisations':autorisations})
         else:
             return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
     else:
@@ -175,8 +258,8 @@ def detail_autorisation(request,pk):
     if user.is_authenticated:
         if user.is_developper == True:
             autorisation = Absence.objects.get(id=pk)
-            
-            return render(request,"developpeur/detail_autorisation.html",{'autorisation':autorisation})
+            mail = Mail.objects.get(absence_id=autorisation.id)
+            return render(request,"developpeur/detail_autorisation.html",{'autorisation':autorisation,'mail':mail})
         else:
             return JsonResponse("Vous n'avez pad d'acces sur cette page !!!!!!!!",safe=False)
     else:

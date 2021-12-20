@@ -26,20 +26,21 @@
                 <ul class="navbar-nav mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/developpeur/profile">profile</a>
+                        <a class="nav-link" href="/developpeur/liste_autorisations_validees">Autorisations Validées</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/developpeur/liste_autorisations_validees">Autorisation Validées</a>
+                        <a class="nav-link" href="/developpeur/liste_autorisations_non_validees">Autorisations Non validées</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/developpeur/liste_autorisations_non_validees">Autorisation Non validées</a>
-                    </li>
+                        <a class="nav-link" href="/developpeur/liste_autorisations_en_cours">Autorisations en cours</a>
+                    </li>   
                 </ul>
                 <!-- Left links -->
             </div>
             <!-- Collapsible wrapper -->
             <div class="d-flex align-items-center">
-                <a type="button" href="/logout" class="btn btn-link px-3 me-2">
+                <span style="color: white;">{{user.email}}</span>
+                <a style="color: violet;" type="button" href="/logout" class="btn btn-link px-3 me-2">
             Logout
           </a>
             </div>

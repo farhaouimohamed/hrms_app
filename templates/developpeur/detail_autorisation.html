@@ -1,0 +1,116 @@
+{% extends "developpeur/base.html" %} {% block content %}
+
+<div class="container col-md-12 col-auto" style="padding-top: 50px">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <h1>Détail Autorisation</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="main-body">
+
+        <div class="row gutters-sm">
+            
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Identifiant</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{autorisation.id}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Date de début</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{autorisation.date_debut}}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Date de fin</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{autorisation.date_fin}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Codification</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{autorisation.codification}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Nature</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{autorisation.nature}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Statut</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{autorisation.statut}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Nombre de jours</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{autorisation.nbr_jours}}
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card border-dark">
+                            <div class="card-header">Mail Envoyé</div>
+                            <div class="card-body text-info">
+                                <h4 class="card-title">{{mail.objet}}</h4>
+                                <h6 class="card-text">À {{mail.email_destination}}</h6>
+                                <p>{{mail.body}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card border-dark">
+                            <div class="card-header">Mail Reçu</div>
+                            <div class="card-body text-info">
+                                <h5 class="card-title">333333333</h5>
+                                <p class="card-text">6666666666</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

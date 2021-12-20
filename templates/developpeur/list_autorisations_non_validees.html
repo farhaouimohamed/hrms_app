@@ -31,7 +31,7 @@
                     <td>{{autorisation.codification}}</td>
                     <td>{{autorisation.nature}}</td>
                     <td>{{autorisation.nbr_jours}}</td>
-                    <td></td>
+                    <td><a class="btn btn-sm btn-dark" href="{% url 'detail_autorisation' autorisation.id %}">Détails</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
